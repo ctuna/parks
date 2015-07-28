@@ -13,13 +13,7 @@ div.bar {
 
 .axis path,
 .axis line {
-    fill: none;
-    stroke: gray;
-    shape-rendering: crispEdges;
-    width: 2px;
-}
-
-.axis text {
-    font-family: sans-serif;
-    font-size: 11px;
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
 }

@@ -5,18 +5,18 @@ div.bar {
   background-color: teal;
   margin-right: 3px; }
 
-.circle {
-  fill: green; }
-
 .axis path,
 .axis line {
-  fill: none;
-  stroke: gray;
-  shape-rendering: crispEdges;
-  width: 2px; }
+    fill: none;
+    stroke: green;
+    width: 2px;
+    shape-rendering: crispEdges;
+}
 
 .axis text {
-  font-family: sans-serif;
-  font-size: 11px; }
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
 
 /*# sourceMappingURL=index.css.map */

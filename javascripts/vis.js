@@ -54,11 +54,11 @@ generateVis = function(){
 	r = w / dataset.length / 2 * .40;
 
 	var yScale = d3.scale.linear()
-			.domain([0, maxVisitors])
-			.range([0, h - r]);
+			.domain( [ 0, maxVisitors ] )
+			.range( [ h, r ] );
 
-	svg.attr("width", w)
-		.attr("height", h);
+	svg.attr( "width", w )
+		.attr( "height", h );
 
 	var circles = svg.selectAll( "circle" )
 		.data( dataset )
@@ -69,7 +69,7 @@ generateVis = function(){
 			return ( i * 50 ) + 25;
 		})
 		.attr( "cy", function ( d ){
-			return h - yScale( d.Field3 );
+			return yScale( d.Field3 );
 		})
 		.attr( "r", r )
 		.on('mouseover', function( d ){
@@ -82,6 +82,22 @@ generateVis = function(){
 		.on('mouseout', function( d ){
 			mouseoff( d );
 		})
+
+	//Define Y axis
+	var yAxis = d3.svg.axis()
+	                  .scale( yScale )
+	                  .orient( "left" )
+	                  .ticks( 6 );
+
+	//Create Y axis
+	svg.append("g")
+	    .attr( "class", "axis" )
+	    .attr( "transform", "translate(" + r + ",0)" )
+	    .call( yAxis );
+		svg.append( "g" )
+			.call( d3.svg.axis()
+				.scale( yScale )
+				.orient( "left" ));
 	
 }
 
