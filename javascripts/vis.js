@@ -4,7 +4,7 @@
 var svg; 
 var w = 600;
 var h = 400; 
-var labelWidth = 90;
+var labelWidth = 95;
 var labelHeight = 35; 
 var r; 
 
@@ -40,13 +40,13 @@ loadData = function(){
 editData = function(){
 	console.log( "formatting data" );
 	dataset.forEach( function( d ){ 
-		d.Field3 = formatNumber( d.Field3 );
+		d.Visitors = formatNumber( d.Field3 );
 		//d.Field2 = monthToNum( d.Field2 );
 		d.MonthAsNum = monthToNum( d.Field2 );
-		totalRecVisitors += d.Field3;
+		totalRecVisitors += d.Visitors;
 		// find maximum visitors (for scale)
-		if( maxVisitors < d.Field3 ){
-			maxVisitors = d.Field3; 
+		if( maxVisitors < d.Visitors ){
+			maxVisitors = d.Visitors; 
 		}
 	} )
 	console.log( "total recreational visitors: " + totalRecVisitors );
@@ -80,7 +80,7 @@ generateVis = function(){
 			return ( xScale( d.MonthAsNum ) );
 		})
 		.attr( "cy", function ( d ){
-			return yScale( d.Field3 );
+			return yScale( d.Visitors );
 		})
 		.attr( "r", r )
 		.on('mouseover', function( d ){
@@ -141,8 +141,8 @@ mouseover = function( d, x, y ){
 		.attr("x", x )
 		.attr("y", y - 35 )
 		.attr("opacity", .75 )
-		.attr("width", 90 )
-		.attr("height", 35 );
+		.attr("width", labelWidth )
+		.attr("height", labelHeight );
 
 	var text = svg.append( "text" )
 		.attr("class", "label_text" )
