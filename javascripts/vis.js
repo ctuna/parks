@@ -6,6 +6,9 @@ var w = 500;
 var h = 400; 
 var r; 
 
+var paddingLeft = 60; 
+var paddingBottom = 20; 
+
 // data
 var totalRecVisitors = 0;
 var maxVisitors = 0; 
@@ -35,7 +38,9 @@ loadData = function(){
 editData = function(){
 	console.log( "formatting data" );
 	dataset.forEach( function( d ){ 
-		d.Field3 = formatNumber( d.Field3 ) 
+		d.Field3 = formatNumber( d.Field3 );
+		//d.Field2 = monthToNum( d.Field2 );
+		d.MonthAsNum = monthToNum( d.Field2 );
 		totalRecVisitors += d.Field3;
 		// find maximum visitors (for scale)
 		if( maxVisitors < d.Field3 ){
@@ -51,11 +56,15 @@ editData = function(){
 generateVis = function(){
 	console.log( "generating visualization..." )
 
-	r = w / dataset.length / 2 * .40;
+	r = w / dataset.length / 2 * .30;
 
 	var yScale = d3.scale.linear()
 			.domain( [ 0, maxVisitors ] )
-			.range( [ h, r ] );
+			.range( [ h - paddingBottom, r ] );
+
+	var xScale = d3.scale.linear()
+			.domain( [ 0, 12 ] )
+			.range( [ 0 + paddingLeft, w - r ] );
 
 	svg.attr( "width", w )
 		.attr( "height", h );
@@ -66,7 +75,7 @@ generateVis = function(){
 		.append( "circle" )
 		.attr( "fill", "green" )
 		.attr( "cx", function( d, i ) {
-			return ( i * 50 ) + 25;
+			return ( xScale( d.MonthAsNum ) );
 		})
 		.attr( "cy", function ( d ){
 			return yScale( d.Field3 );
@@ -89,15 +98,22 @@ generateVis = function(){
 	                  .orient( "left" )
 	                  .ticks( 6 );
 
+
 	//Create Y axis
 	svg.append("g")
 	    .attr( "class", "axis" )
-	    .attr( "transform", "translate(" + r + ",0)" )
+	    .attr( "transform", "translate(" + paddingLeft + ",0)" )
 	    .call( yAxis );
-		svg.append( "g" )
-			.call( d3.svg.axis()
-				.scale( yScale )
-				.orient( "left" ));
+
+	//Define X axis
+	var xAxis = d3.svg.axis()
+	                  .scale( xScale )
+	                  .orient( "bottom" )
+	//Create X axis
+	svg.append("g")
+	    .attr( "class", "axis" )
+	    .attr("transform", "translate(0," + ( h - paddingBottom ) + ")" )
+	    .call( xAxis );
 	
 }
 
@@ -143,4 +159,48 @@ removeCommas = function( num ){
 
 formatNumber = function( str ){
 	return parseInt( removeCommas ( str ) );
-		}
+}
+
+monthToNum = function( str ){
+	switch( str ) {
+    case "January":
+        return 1;
+        break;
+    case "February":
+        return 2;
+        break;
+    case "March":
+        return 3;
+        break;
+    case "April":
+        return 4;
+        break;
+    case "May":
+        return 5;
+        break;
+    case "June":
+        return 6;
+        break;
+    case "July":
+        return 7;
+        break;
+    case "August":
+        return 8;
+        break;
+    case "September":
+        return 9;
+        break;
+    case "October":
+        return 10;
+        break;
+    case "November":
+        return 11;
+        break;
+    case "December":
+        return 12;
+        break;                                                              
+    default:
+    	console.log( "other");
+    	break;
+	}	
+}
