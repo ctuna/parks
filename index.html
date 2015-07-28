@@ -3,29 +3,14 @@
   <head>
     <title>parks viz</title>
     <meta charset='utf-8'>
-    <script src='d3/d3.v3.js' type='text/javascript'></script>
+    <script src='javascripts/d3/d3.v3.js' type='text/javascript'></script>
+    <script src='javascripts/vis.js' type='text/javascript'></script>
+    <link href='stylesheets/index.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <script type='text/javascript'>
-      var dataset;
-      
-      d3.csv( "data/yosemite2014.csv", function( error, d ){
-      	if( error ){
-      		console.log( error );
-      	}
-      	else{
-      		dataset = d; 
-      		generateVis();
-      	}
-      });
-      
-      function generateVis(){
-      	d3.select("body").selectAll("p")
-      		.data( dataset )
-      		.enter()
-      		.append("p")
-      		.text( function( d ) { return ( d.Field2 + ": " + d.Field3 ); });
-      }
+      var svg = d3.select("body").append("svg");
+      init( svg );
     </script>
   </body>
 </html>

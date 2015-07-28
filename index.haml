@@ -3,27 +3,12 @@
 	%head
 		%title parks viz
 		%meta{ :charset => "utf-8" }
-		%script{ :type => "text/javascript", :src => "d3/d3.v3.js"}
+		%script{ :type => "text/javascript", :src => "javascripts/d3/d3.v3.js"}
+		%script{ :type => "text/javascript", :src => "javascripts/vis.js"}
+		%link{:rel => :stylesheet, :type => :"text/css", :href => "stylesheets/index.css"}
 
 	%body
 		%script{ type: "text/javascript" }
 			:plain
-				var dataset;
-
-				d3.csv( "data/yosemite2014.csv", function( error, d ){
-					if( error ){
-						console.log( error );
-					}
-					else{
-						dataset = d; 
-						generateVis();
-					}
-				});
-
-				function generateVis(){
-					d3.select("body").selectAll("p")
-						.data( dataset )
-						.enter()
-						.append("p")
-						.text( function( d ) { return ( d.Field2 + ": " + d.Field3 ); });
-				}
+				var svg = d3.select("body").append("svg");
+				init( svg );
