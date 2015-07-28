@@ -7,6 +7,7 @@ var h = 400;
 var labelWidth = 95;
 var labelHeight = 35; 
 var r; 
+var rScale = .2; 
 
 var paddingLeft = 60; 
 var paddingBottom = 20; 
@@ -15,6 +16,10 @@ var paddingBottom = 20;
 var totalRecVisitors = 0;
 var maxVisitors = 0; 
 var dataset;
+var links = { 
+		pointReyes: "../data/pointreyes.csv", 
+		yosemite: "../data/yosemite2014.csv" 
+	}; 
 
 // initialize chain of functions: loadData(), editData(), generateVis()
 init = function( s ){
@@ -25,7 +30,8 @@ init = function( s ){
 // load csv data into var dataset
 loadData = function(){ 
 	console.log( "loading data..." );
-	d3.csv( "../data/yosemite2014.csv", function( error, d ){
+	console.log("FOR POINT REYES")
+	d3.csv( links.pointReyes, function( error, d ){
 		if( error ){
 			console.log( error );
 		}
@@ -58,7 +64,7 @@ editData = function(){
 generateVis = function(){
 	console.log( "generating visualization..." )
 
-	r = w / dataset.length / 2 * .30;
+	r = w / dataset.length / 2 * rScale;
 
 	var yScale = d3.scale.linear()
 			.domain( [ 0, maxVisitors ] )
@@ -75,7 +81,7 @@ generateVis = function(){
 		.data( dataset )
 		.enter()
 		.append( "circle" )
-		.attr( "fill", "#336666" )
+		.attr( "class", "point" )
 		.attr( "cx", function( d, i ) {
 			return ( xScale( d.MonthAsNum ) );
 		})
