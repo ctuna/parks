@@ -6,9 +6,11 @@
 		%script{ :type => "text/javascript", :src => "javascripts/d3/d3.v3.js"}
 		%script{ :type => "text/javascript", :src => "javascripts/vis.js"}
 		%link{:rel => :stylesheet, :type => :"text/css", :href => "stylesheets/index.css"}
+		%link{:rel => :stylesheet, :type => :"text/css", :href => "stylesheets/unsemantic-grid-responsive.css"}
 
 	%body
+		%div.box
 		%script{ type: "text/javascript" }
 			:plain
-				var svg = d3.select("body").append("svg");
+				var svg = d3.select(".box").append("svg");
 				init( svg );
