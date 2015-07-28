@@ -2,8 +2,10 @@
 
 // visualization
 var svg; 
-var w = 500;
+var w = 600;
 var h = 400; 
+var labelWidth = 90;
+var labelHeight = 35; 
 var r; 
 
 var paddingLeft = 60; 
@@ -60,11 +62,11 @@ generateVis = function(){
 
 	var yScale = d3.scale.linear()
 			.domain( [ 0, maxVisitors ] )
-			.range( [ h - paddingBottom, r ] );
+			.range( [ h - paddingBottom, labelHeight + r ] );
 
 	var xScale = d3.scale.linear()
 			.domain( [ 0, 12 ] )
-			.range( [ 0 + paddingLeft, w - r ] );
+			.range( [ 0 + paddingLeft, w - labelWidth - r ] );
 
 	svg.attr( "width", w )
 		.attr( "height", h );
@@ -73,7 +75,7 @@ generateVis = function(){
 		.data( dataset )
 		.enter()
 		.append( "circle" )
-		.attr( "fill", "green" )
+		.attr( "fill", "#336666" )
 		.attr( "cx", function( d, i ) {
 			return ( xScale( d.MonthAsNum ) );
 		})
@@ -120,6 +122,9 @@ generateVis = function(){
 // clear the visualization
 clear = function(){
 	svg.selectAll( "circle" ).remove();
+	svg.selectAll( "g" ).remove();
+	svg.selectAll( "rect" ).remove();
+	svg.selectAll( "text" ).remove();
 }
 
 // redraw the visualization 
@@ -130,18 +135,33 @@ redraw = function(){
 }
 
 mouseover = function( d, x, y ){
-	console.log( d.Field3 + " [ "+ x + ", " + y + "]" );
-	svg.selectAll( "rect" )
-		.data( { x: x, y: y, d: d.Field3 } )
-		.enter()
-		.append( "rect" )
-		.attr({
-			x: function( d ) { d.x },  
-			y: function( d ) { d.y }, 
-			width: 60,
-			height: 20,
-			fill: "red"
-		});
+	//Draw the Rectangle
+	var rectangle = svg.append( "rect" )
+		.attr("class", "label_rect")
+		.attr("x", x )
+		.attr("y", y - 35 )
+		.attr("opacity", .75 )
+		.attr("width", 90 )
+		.attr("height", 35 );
+
+	var text = svg.append( "text" )
+		.attr("class", "label_text" )
+		.attr("x", x + 10 )
+		.attr("y", y - 5 )
+		.text( d.Field3 )
+	var text = svg.append( "text" )
+		.attr("class", "label_text" )
+		.attr("x", x + 10 )
+		.attr("y", y - 20 )
+		.text( d.Field2 + ":" )
+
+
+		console.log( d.Field3 + " [ "+ x + ", " + y + "]" );
+		//svg.selectAll( "rect" )
+		//	.data( { x: x, y: y, d: d.Field3 } )
+		//	.enter()
+		//	.append( "rect" );
+	
 	}
 
 mouseoff = function( d ){
