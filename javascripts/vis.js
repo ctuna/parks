@@ -153,6 +153,7 @@ mouseover = function( d, x, y ){
 		.attr("class", "label_text" )
 		.attr("x", x + 10 )
 		.attr("y", y - 20 )
+		.attr( "font-weight", "bold")
 		.text( d.Field2 + ":" )
 
 
