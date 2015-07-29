@@ -116,6 +116,15 @@ generateVis = function(){
 	//Define X axis
 	var xAxis = d3.svg.axis()
 	                  .scale( xScale )
+	                  .ticks( 12 )
+	                  .tickFormat( function( i ) { 
+	                  		// we start counting months at 1 
+	                  		if ( i == 0 ){
+	                  			return "";
+	                  		}
+	                  		var monthName = dataset[ i - 1].Field2; 
+	                  		return monthToAbbreviation( monthName );
+	                  	})
 	                  .orient( "bottom" )
 	//Create X axis
 	svg.append("g")
@@ -186,6 +195,43 @@ removeCommas = function( num ){
 
 formatNumber = function( str ){
 	return parseInt( removeCommas ( str ) );
+}
+
+// abbreviating months following Chicago Manual of Style
+monthToAbbreviation = function( str ){
+	switch( str ) {
+    case "January":
+        return "Jan.";
+        break;
+    case "February":
+        return "Feb.";
+        break;
+    case "March":
+        return "Mar.";
+        break;
+    case "April":
+        return "Apr.";
+        break;
+    case "August":
+        return "Aug.";
+        break;
+    case "September":
+        return "Sept.";
+        break;
+    case "October":
+        return "Oct.";
+        break;
+    case "November":
+        return "Sept.";
+        break;
+    case "December":
+        return "Dec.";
+        break;                                                              
+    default:
+    	// May, June, July stay whole 
+    	return str; 
+    	break;
+	}	
 }
 
 monthToNum = function( str ){
