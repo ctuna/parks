@@ -131,7 +131,16 @@ generateVis = function(){
 	    .attr( "class", "axis" )
 	    .attr("transform", "translate(0," + ( h - paddingBottom ) + ")" )
 	    .call( xAxis );
-	
+
+	console.log("doing value line");
+	var valueLine = d3.svg.line()
+		.interpolate( "linear" )           // <=== THERE IT IS!
+		.x( function( d ) { return ( xScale( d.MonthAsNum ) ); })
+		.y( function( d ) { return ( yScale( d.Visitors ) ); });
+
+	svg.append( "path" )
+	    .attr( "class", "line" )
+	    .attr( "d", valueLine( dataset ) );
 }
 
 // clear the visualization

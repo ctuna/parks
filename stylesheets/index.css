@@ -5,6 +5,11 @@ div.bar {
   background-color: teal;
   margin-right: 3px; }
 
+path {
+  stroke: #6b9c88;
+  stroke-width: 1;
+  fill: none; }
+
 .point {
   fill: #6b9c88; }
 
