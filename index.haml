@@ -5,6 +5,13 @@
 		%meta{ :charset => "utf-8" }
 		%script{ :type => "text/javascript", :src => "javascripts/d3/d3.v3.js"}
 		%script{ :type => "text/javascript", :src => "javascripts/vis.js"}
+
+		%script{ :type => "text/javascript", :src => "javascripts/graph.js"}
+		%script{ :type => "text/javascript", :src => "javascripts/park.js"}
+		%script{ :type => "text/javascript", :src => "javascripts/format.js"}
+		%script{ :type => "text/javascript", :src => "javascripts/dataset.js"}
+		%script{ :type => "text/javascript", :src => "javascripts/plot.js"}
+
 		%link{:rel => :stylesheet, :type => :"text/css", :href => "stylesheets/index.css"}
 		%link{:rel => :stylesheet, :type => :"text/css", :href => "stylesheets/unsemantic-grid-responsive.css"}
 
@@ -13,4 +20,7 @@
 		%script{ type: "text/javascript" }
 			:plain
 				var svg = d3.select(".box").append("svg");
-				init( svg );
+				var w = 600;
+				var h = 400;
+				var g = new Graph( w, h, svg );
+				var Format = new Format();

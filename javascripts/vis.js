@@ -2,10 +2,14 @@
 
 // visualization
 var svg; 
+
+
 var w = 600;
 var h = 400; 
+
 var labelWidth = 95;
 var labelHeight = 35; 
+
 var r; 
 var rScale = .2; 
 
@@ -16,13 +20,17 @@ var paddingBottom = 20;
 var totalRecVisitors = 0;
 var maxVisitors = 0; 
 var dataset;
+
+
+
 var links = { 
-		pointReyes: "../data/pointreyes.csv", 
-		yosemite: "../data/yosemite2014.csv" 
+		pointReyes: "./data/pointreyes.csv", 
+		yosemite: "./data/yosemite2014.csv" 
 	}; 
 
 // initialize chain of functions: loadData(), editData(), generateVis()
 init = function( s ){
+			console.log(" in vis.init ");
 			svg = s; 
 			loadData();
 }
@@ -31,7 +39,7 @@ init = function( s ){
 loadData = function(){ 
 	console.log( "loading data..." );
 	console.log("FOR POINT REYES")
-	d3.csv( links.pointReyes, function( error, d ){
+	d3.csv( links.yosemite, function( error, d ){
 		if( error ){
 			console.log( error );
 		}
@@ -134,7 +142,7 @@ generateVis = function(){
 
 	console.log("doing value line");
 	var valueLine = d3.svg.line()
-		.interpolate( "linear" )           // <=== THERE IT IS!
+		.interpolate( "cardinal" )           // <=== THERE IT IS!
 		.x( function( d ) { return ( xScale( d.MonthAsNum ) ); })
 		.y( function( d ) { return ( yScale( d.Visitors ) ); });
 
@@ -245,44 +253,49 @@ monthToAbbreviation = function( str ){
 
 monthToNum = function( str ){
 	switch( str ) {
-    case "January":
-        return 1;
-        break;
-    case "February":
-        return 2;
-        break;
-    case "March":
-        return 3;
-        break;
-    case "April":
-        return 4;
-        break;
-    case "May":
-        return 5;
-        break;
-    case "June":
-        return 6;
-        break;
-    case "July":
-        return 7;
-        break;
-    case "August":
-        return 8;
-        break;
-    case "September":
-        return 9;
-        break;
-    case "October":
-        return 10;
-        break;
-    case "November":
-        return 11;
-        break;
-    case "December":
-        return 12;
-        break;                                                              
-    default:
-    	console.log( "other");
-    	break;
-	}	
+	    case "January":
+	        return 1;
+	        break;
+	    case "February":
+	        return 2;
+	        break;
+	    case "March":
+	        return 3;
+	        break;
+	    case "April":
+	        return 4;
+	        break;
+	    case "May":
+	        return 5;
+	        break;
+	    case "June":
+	        return 6;
+	        break;
+	    case "July":
+	        return 7;
+	        break;
+	    case "August":
+	        return 8;
+	        break;
+	    case "September":
+	        return 9;
+	        break;
+	    case "October":
+	        return 10;
+	        break;
+	    case "November":
+	        return 11;
+	        break;
+	    case "December":
+	        return 12;
+	        break;                                                              
+	    default:
+	    	console.log( "other");
+	    	break;
+		}	
 }
+
+
+
+
+
